@@ -1,0 +1,9 @@
+.display{
+    position: absolute;
+    left: 17px;
+    top: 20px;
+    font-size: 25px;
+    height: 80px;
+    border: 2px solid blue;
+    border-radius: 10px;
+}

@@ -1,0 +1,12 @@
+.calculator{
+    border: 3px solid red;
+    width: 350px;
+    height: 550px;
+    border-radius: 10px;
+    margin: 50px 500px;
+    /* display: flex; */
+    position: relative;
+}
+
+
+
