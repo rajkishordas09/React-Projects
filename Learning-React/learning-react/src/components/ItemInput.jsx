@@ -1,6 +1,6 @@
 import Style from "./ItemInput.module.css"
 
-const ItemInput=({onChange})=>{
+const ItemInput=({onChange,handleKeyDown})=>{
 
 
 
@@ -8,7 +8,7 @@ const ItemInput=({onChange})=>{
         <>
         <div className={Style.itemInput}>
             <input className={Style.input}type="text"  placeholder="enter food items here"
-            onChange={onChange}/>
+            onChange={onChange} onKeyDown={handleKeyDown}/>
         </div>
         </>
     )
