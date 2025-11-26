@@ -1,4 +1,10 @@
 .buttonContainer{
-
-    margin: 150px 40px;
+    
+    margin: 150px 20px;
+    
+}
+.button{
+  margin: 15px;
+  padding: 15px;
+  
 }
