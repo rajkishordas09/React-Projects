@@ -1,10 +1,10 @@
 import TodoItem from "./TodoItem";
 
-const TodoItems = ({ todoItems }) => {
+const TodoItems = ({ todoItems , onHandleDelete}) => {
   return (
     <>
-      {todoItems.map((items) => (
-        <TodoItem key={items.name} name={items.name} dueDate={items.dueDate} />
+      {todoItems.map((items,index) => (
+        <TodoItem key={index} name={items.name} dueDate={items.dueDate} handleDelete={ onHandleDelete} />
       ))}
     </>
   );
