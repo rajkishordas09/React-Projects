@@ -16,9 +16,11 @@ function App() {
       name: data,
       dueDate: date,
     };
-    let newArr = [...todoList, obj];
+    // let newArr = [...todoList, obj];
+    // setTodoList(newArr);
 
-    setTodoList(newArr);
+    setTodoList(currItem=>[...currItem,obj]);
+
   };
 
   const onHandleDelete = (deleteData) => {

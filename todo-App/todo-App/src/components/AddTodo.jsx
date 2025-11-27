@@ -1,23 +1,34 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Style from "./AddTodo.module.css";
-import { useState } from "react";
+import { useState,useRef } from "react";
 import { IoBagAdd } from "react-icons/io5";
 
 function AddTodo({ handleOnClick }) {
-  const [newData, setNewData] = useState("");
-  const [newDate, setNewDate] = useState("");
+  // const [newData, setNewData] = useState("");
+  // const [newDate, setNewDate] = useState("");
 
-  const handleData = (event) => {
-    setNewData(event.target.value);
-  };
-  const handleDate = (event) => {
-    setNewDate(event.target.value);
-  };
+
+  // const handleData = (event) => {
+  //   setNewData(event.target.value);
+  // };
+  // const handleDate = (event) => {
+  //   setNewDate(event.target.value);
+  // };
+
+const todoNameElement=useRef();
+const dueDateElement=useRef();
 
 const onClickedButton=()=>{
-  handleOnClick(newData, newDate)
-  setNewData("")
-  setNewDate("")
+
+ let todoName=todoNameElement.current.value;
+ let dueDate=dueDateElement.current.value;
+  handleOnClick(todoName, dueDate)
+
+  todoNameElement.current.value="";
+  dueDateElement.current.value="";
+
+  // setNewData("")
+  // setNewDate("")
 }
 
   return (
@@ -25,10 +36,10 @@ const onClickedButton=()=>{
       <div className="container text-center">
         <div className="row">
           <div className="col">
-            <input type="text" placeholder="write here" value={newData} onChange={handleData} />
+            <input type="text" placeholder="write here" ref={todoNameElement}/*value={newData}onChange={handleData} */ />
           </div>
           <div className="col">
-            <input type="date" value={newDate} onChange={handleDate} />
+            <input type="date" ref={dueDateElement}/*value={newDate} onChange={handleDate} */ />
           </div>
           <div className="col">
             <button
