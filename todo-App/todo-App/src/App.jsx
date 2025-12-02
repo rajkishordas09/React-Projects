@@ -5,13 +5,12 @@ import TodoItems from "./components/TodoItems";
 import AppName from "./components/AppName";
 import { useState } from "react";
 import EmptyTodo from "./components/EmptyTodo";
+import { StoreContextElement } from "./components/Store";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
 
   const handleClick = (data, date) => {
-   
-
     const obj = {
       name: data,
       dueDate: date,
@@ -19,8 +18,7 @@ function App() {
     // let newArr = [...todoList, obj];
     // setTodoList(newArr);
 
-    setTodoList(currItem=>[...currItem,obj]);
-
+    setTodoList((currItem) => [...currItem, obj]);
   };
 
   const onHandleDelete = (deleteData) => {
@@ -28,30 +26,22 @@ function App() {
     let newList = todoList.filter((item) => item.name !== deleteData);
     setTodoList(newList);
   };
-  // function handleDelete(deleteData) {
-  //   let list = todoList;
-  //   list.map((item, index) => {
-  //     if (item.name === deleteData && index !== 0) {
-  //       list.splice(index, index);
-  //       return setTodoList(list);
-  //     } else if (item.name === deleteData) {
-  //       list.shift();
-  //       return setTodoList(list);
-  //     }
-  //   });
-  // }
 
   return (
     <>
       <center>
-        <AppName />
-        <div className={Style.container}>
-          <AddTodo handleOnClick={handleClick}></AddTodo>
-          <div className="todo-item">
-            <TodoItems todoItems={todoList} onHandleDelete={onHandleDelete} />
+        <StoreContextElement.Provider
+          value={{ todoItems: todoList, handleClick, onHandleDelete }}
+        >
+          <AppName />
+          <div className={Style.container}>
+            <AddTodo></AddTodo>
+            <div className="todo-item">
+              <TodoItems />
+            </div>
+            <EmptyTodo />
           </div>
-          <EmptyTodo list={todoList} />
-        </div>
+        </StoreContextElement.Provider>
       </center>
     </>
   );
