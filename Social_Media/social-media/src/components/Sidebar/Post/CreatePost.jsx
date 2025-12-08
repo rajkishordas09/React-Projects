@@ -12,10 +12,12 @@ export default function CreatePost() {
 
     inputTitleElement.current.value = "";
     inputDescriptionElement.current.value = "";
+
     InputTagElement.current.value = "";
   }
   const inputTitleElement = useRef();
   const inputDescriptionElement = useRef();
+
   const InputTagElement = useRef();
   return (
     <>
@@ -59,6 +61,7 @@ export default function CreatePost() {
               placeholder="Write something..."
             />
           </div>
+
           <div className="row mb-3 ">
             <label htmlFor="inputText" className="col-sm-2 col-form-label">
               Tag

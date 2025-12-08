@@ -1,16 +1,14 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { MdDelete } from "react-icons/md";
+import { AiFillLike } from "react-icons/ai";
+import { AiFillDislike } from "react-icons/ai";
 import { PostList } from "../../Store";
 export default function Post({ post }) {
   const { deletePost } = useContext(PostList);
   function handleDelete() {
-    deletePost(post.postId);
+    deletePost(post.id);
   }
-  const [countReaction, setCountReaction] = useState(0);
 
-  function handleReaction() {
-    setCountReaction((curr) => (curr += 1));
-  }
   return (
     <>
       <div
@@ -29,24 +27,28 @@ export default function Post({ post }) {
             <span
               onClick={handleDelete}
               className="position-absolute top-1  translate-middle badge rounded-pill bg-danger"
-              style={{ marginLeft: "350px", cursor: "pointer" }}
+              style={{
+                marginLeft: "350px",
+                cursor: "pointer",
+              }}
             >
               <MdDelete />
             </span>
           </div>
-          <p className="card-text">{post.description}</p>
+          <p className="card-text">{post.body}</p>
           <h6>
             {" "}
             <span
-              onClick={handleReaction}
               className="badge text-bg-secondary"
-              style={{ marginLeft: "250px", cursor: "pointer" }}
+              style={{ marginLeft: "260px", cursor: "pointer" }}
             >
-              Reactions : {countReaction}
+              <AiFillLike />
+              {post.reactions.likes} <AiFillDislike />
+              {post.reactions.dislikes}
             </span>
           </h6>
 
-          {post.tag.map((eachTag, index) => (
+          {post.tags.map((eachTag, index) => (
             <span
               key={index}
               className="badge text-bg-primary"
