@@ -1,4 +1,10 @@
-import { createContext, useCallback, useReducer } from "react";
+import {
+  createContext,
+  useCallback,
+  useReducer,
+  useState,
+  useEffect,
+} from "react";
 
 const PostList = createContext({
   postList: [],
@@ -42,6 +48,7 @@ const PostListProvider = ({ children }) => {
       payload: { posts },
     });
   }
+
   const deletePost = useCallback(
     (postId) => {
       dispatchPostList({
@@ -54,9 +61,23 @@ const PostListProvider = ({ children }) => {
     [dispatchPostList]
   );
 
+  const [fetching, setFetching] = useState(true);
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    fetch("https://dummyjson.com/posts/", { signal })
+      .then((res) => res.json())
+      .then((data) => {
+        addPostFromServer(data.posts);
+        setFetching(false);
+      });
+    return () => {
+      controller.abort();
+    };
+  }, []);
   return (
     <PostList.Provider
-      value={{ addPost, addPostFromServer, postList, deletePost }}
+      value={{ addPost, addPostFromServer, postList, deletePost, fetching }}
     >
       {children}
     </PostList.Provider>

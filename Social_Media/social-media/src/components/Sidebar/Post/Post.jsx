@@ -40,10 +40,11 @@ export default function Post({ post }) {
             {" "}
             <span
               className="badge text-bg-secondary"
-              style={{ marginLeft: "260px", cursor: "pointer" }}
+              style={{ marginLeft: "260px" }}
             >
-              <AiFillLike />
-              {post.reactions.likes} <AiFillDislike />
+              <AiFillLike style={{ cursor: "pointer" }} />
+              {post.reactions.likes}{" "}
+              <AiFillDislike style={{ cursor: "pointer" }} />
               {post.reactions.dislikes}
             </span>
           </h6>

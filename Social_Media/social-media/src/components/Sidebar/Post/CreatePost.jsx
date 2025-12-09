@@ -1,15 +1,33 @@
 import { useContext, useRef } from "react";
 import { PostList } from "../../Store";
+import { useNavigate } from "react-router-dom";
 
 export default function CreatePost() {
   const { addPost } = useContext(PostList);
-  function handleAddPost() {
+  const navigate = useNavigate();
+  function handleAddPost(e) {
+    e.preventDefault();
     const title = inputTitleElement.current.value;
-    const description = inputDescriptionElement.current.value;
+    const body = inputDescriptionElement.current.value;
 
     const tag = InputTagElement.current.value.split(" ");
-    addPost(title, description, tag);
 
+    // fetch("https://dummyjson.com/posts/add", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({
+    //     title: title,
+    //     body: body,
+    //     tags: tag,
+    //     userId: 5,
+    //     /* other post data */
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => console.log);
+
+    addPost(title, body, tag);
+    navigate("/");
     inputTitleElement.current.value = "";
     inputDescriptionElement.current.value = "";
 
