@@ -1,45 +1,54 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { PostList } from "../../Store";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Form, useActionData, redirect } from "react-router-dom";
 
 export default function CreatePost() {
   const { addPost } = useContext(PostList);
   const navigate = useNavigate();
-  function handleAddPost(e) {
-    e.preventDefault();
-    const title = inputTitleElement.current.value;
-    const body = inputDescriptionElement.current.value;
+  const postData = useActionData();
 
-    const tag = InputTagElement.current.value.split(" ");
+  useEffect(() => {
+    if (postData) {
+      addPost(postData.title, postData.body, postData.tags);
+      navigate("/");
+    }
+  }, [postData]);
 
-    // fetch("https://dummyjson.com/posts/add", {
-    //   method: "POST",
-    //   headers: { "Content-Type": "application/json" },
-    //   body: JSON.stringify({
-    //     title: title,
-    //     body: body,
-    //     tags: tag,
-    //     userId: 5,
-    //     /* other post data */
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => console.log);
+  // function handleAddPost(e) {
+  //   e.preventDefault();
+  //   const title = inputTitleElement.current.value;
+  //   const body = inputDescriptionElement.current.value;
 
-    addPost(title, body, tag);
-    navigate("/");
-    inputTitleElement.current.value = "";
-    inputDescriptionElement.current.value = "";
+  //   const tag = InputTagElement.current.value.split(" ");
 
-    InputTagElement.current.value = "";
-  }
-  const inputTitleElement = useRef();
-  const inputDescriptionElement = useRef();
+  // fetch("https://dummyjson.com/posts/add", {
+  //   method: "POST",
+  //   headers: { "Content-Type": "application/json" },
+  //   body: JSON.stringify({
+  //     title: title,
+  //     body: body,
+  //     tags: tag,
+  //     userId: 5,
+  //     /* other post data */
+  //   }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((data) => console.log);
 
-  const InputTagElement = useRef();
+  //   addPost(title, body, tag);
+  //   navigate("/");
+  //   inputTitleElement.current.value = "";
+  //   inputDescriptionElement.current.value = "";
+
+  //   InputTagElement.current.value = "";
+  // }
+  // const inputTitleElement = useRef();
+  // const inputDescriptionElement = useRef();
+
+  // const InputTagElement = useRef();
   return (
     <>
-      <form onSubmit={handleAddPost}>
+      <Form method="POST" /*onSubmit={handleAddPost}*/>
         <div
           style={{
             border: "2px solid red",
@@ -55,7 +64,8 @@ export default function CreatePost() {
             </label>
 
             <input
-              ref={inputTitleElement}
+              // ref={inputTitleElement}
+              name="title"
               type="text"
               className="form-control"
               id="inputText"
@@ -72,7 +82,8 @@ export default function CreatePost() {
             </label>
 
             <textarea
-              ref={inputDescriptionElement}
+              // ref={inputDescriptionElement}
+              name="body"
               type="text"
               className="form-control"
               id="inputDescription"
@@ -86,7 +97,9 @@ export default function CreatePost() {
             </label>
 
             <input
-              ref={InputTagElement}
+              // ref={InputTagElement}
+
+              name="tags"
               type="text"
               className="form-control"
               id="inputText"
@@ -100,7 +113,13 @@ export default function CreatePost() {
             </button>
           </div>
         </div>
-      </form>
+      </Form>
     </>
   );
+}
+export async function createPostAction(requestData) {
+  const formData = await requestData.request.formData();
+  const postData = Object.fromEntries(formData);
+  postData.tags = postData.tags.split(" ");
+  return postData;
 }

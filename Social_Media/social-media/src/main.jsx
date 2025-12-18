@@ -3,7 +3,9 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./Routes/App.jsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import CreatePost from "./components/Sidebar/Post/CreatePost.jsx";
+import CreatePost, {
+  createPostAction,
+} from "./components/Sidebar/Post/CreatePost.jsx";
 import PostList from "./components/Sidebar/Post/PostList.jsx";
 
 const router = createBrowserRouter([
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
       {
         path: "/create-post",
         element: <CreatePost />,
+        action: createPostAction, //it call automatically when form is submitted
       },
     ],
   },
