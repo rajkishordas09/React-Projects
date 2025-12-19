@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import Display from "./Display";
-import { counterActions, privacyActions } from "../Store";
+import { counterActions } from "../Store/counter";
+import { privacyActions } from "../Store/privacy";
 import { useDispatch } from "react-redux";
 
 export default function Counter() {
