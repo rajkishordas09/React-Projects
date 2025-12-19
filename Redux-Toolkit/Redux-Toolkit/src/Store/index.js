@@ -9,7 +9,7 @@ const counterSlice = createSlice({ //this is slice of counter
             state.counterVal++;
         },
         decrement: (state) => {
-            state.counterVal--;
+            state.counterVal--;  //bydefault returns state
         },
         add: (state, action) => {
             state.counterVal += Number(action.payload.num)

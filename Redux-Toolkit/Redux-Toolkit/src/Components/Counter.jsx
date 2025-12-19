@@ -24,6 +24,7 @@ export default function Counter() {
   };
   const handleSub = () => {
     dispatch(counterActions.subtract({ num: inputElement.current.value }));
+    inputElement.current.value = "";
   };
 
   return (
