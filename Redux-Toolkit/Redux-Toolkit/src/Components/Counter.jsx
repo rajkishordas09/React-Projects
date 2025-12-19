@@ -1,13 +1,12 @@
 import React, { useRef } from "react";
 import Display from "./Display";
-import { counterActions } from "../Store";
+import { counterActions, privacyActions } from "../Store";
 import { useDispatch } from "react-redux";
 
 export default function Counter() {
   const dispatch = useDispatch();
 
   const inputElement = useRef();
-  //   const inputValue = inputElement.current.value;
 
   const handleIncrease = () => {
     dispatch(counterActions.increment());
@@ -15,12 +14,16 @@ export default function Counter() {
   const handleDecrease = () => {
     dispatch(counterActions.decrement());
   };
-  const handleToggle = () => {};
+  const handleToggle = () => {
+    dispatch(privacyActions.togglePrivacy());
+  };
   const handleAdd = () => {
-    dispatch(counterActions.add());
+    // console.log(Number(inputElement.current.value));
+    dispatch(counterActions.add({ num: inputElement.current.value }));
+    inputElement.current.value = "";
   };
   const handleSub = () => {
-    dispatch(counterActions.subtract());
+    dispatch(counterActions.subtract({ num: inputElement.current.value }));
   };
 
   return (
@@ -53,7 +56,7 @@ export default function Counter() {
             ref={inputElement}
             style={{ width: "210px", margin: "10px 70px" }}
             className="form-control me-2"
-            type="text"
+            type="number"
             placeholder="Enter a Number"
           />
           <button
